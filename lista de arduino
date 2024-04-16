@@ -12,3 +12,170 @@ void loop()
   digitalWrite(LED_BUILTIN, LOW);
   delay(1000); // Wait for 1000 millisecond(s)
 }
+
+//exercicio 2 //////////
+
+const int ledPin = 13;
+
+void setup() {
+  // Configurar o pino do LED como saída
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // Acender o LED
+  digitalWrite(ledPin, HIGH);  
+  // Esperar 1 segundo
+  delay(1000);  
+  // Apagar o LED
+  digitalWrite(ledPin, LOW);
+  // Esperar 1 segundo
+  delay(1000);
+}
+
+//exercicio 3 ////////
+
+//varíavel que guarda o dado vindo da serial
+char leitura;
+//define os pinos onde os LEDs estão conectados
+#define ledRed 11
+#define ledGreen 12
+#define ledYellow 13
+void setup() {
+//Inicializa comunicação Serial a 9600
+Serial.begin(9600);
+//Configura os pinos dos LEDs como saída
+pinMode(ledRed, OUTPUT);
+pinMode(ledGreen, OUTPUT);
+pinMode(ledYellow,OUTPUT);
+//Mantém os LEDs desligados assim que iniciar o programa
+digitalWrite (ledRed, LOW);
+digitalWrite (ledGreen, LOW);
+digitalWrite (ledYellow, LOW);
+}
+void loop() {
+//Verifica se há algum dado no conector serial
+while (Serial.available() > 0) {
+//Lê o dado vindo da Serial e armazena na variável leitura
+leitura = Serial.read();
+//Se a variável leitura for igual a 'r' ou 'R' Inverte o valor do LED vermelho
+if (leitura == 'r' || leitura =='R'){// As duas || é a operação booleana OU
+digitalWrite(ledRed,!digitalRead(ledRed));
+}
+//Se ela for igual a 'g' ou 'G' Inverte o valor do LED Verde
+else if (leitura == 'g' || leitura =='G'){
+digitalWrite(ledGreen,!digitalRead(ledGreen));
+}
+//Se ela for igual a 'y' ou 'Y' Inverte o valor do LED Verde
+else if (leitura == 'y' || leitura =='Y'){
+digitalWrite(ledYellow,!digitalRead(ledYellow));
+}
+Serial.println(leitura);
+}
+}
+
+//exercicio 4//////////
+
+#define CHAVE 2 //Define CHAVE como 2
+void setup()
+{
+
+ pinMode(CHAVE, INPUT); //Configura o pino 2 como entrada
+ Serial.begin(9600); //Habilita a porta Serial com um Baud Rate de 9600
+}
+void loop()
+{
+
+ if(digitalRead(CHAVE)) //Se o botão for pressionado
+}
+ Serial.println("Botao Pressionado\n"); //Imprime no Serial Monitor "Botão
+Pressionado"
+ }
+
+ else //Senão
+ {
+ Serial.println("Botao Despressionado\n"); // Imprime no Serial Monitor "Botão
+Despressionado"
+ }
+
+ delay(250); //Delay de 250 milissegundos
+}
+ 
+
+//exercicio 5////
+
+int buttonA = 6; 
+int buttonB = 5; 
+int ledOR = 4; 
+int ledAND = 3; 
+int ledXOR = 2; 
+
+void setup() {
+  pinMode(buttonA, INPUT); 
+  pinMode(buttonB, INPUT);
+  pinMode(ledOR, OUTPUT); 
+  pinMode(ledAND, OUTPUT); 
+  pinMode(ledXOR, OUTPUT); 
+}
+
+void loop() {
+  int estadoA = digitalRead(buttonA); 
+  int estadoB = digitalRead(buttonB); 
+
+  digitalWrite(ledOR, estadoA || estadoB); 
+  digitalWrite(ledAND, estadoA && estadoB); 
+  digitalWrite(ledXOR, estadoA ^ estadoB); 
+}
+
+//exercicio 6//////
+
+#define pot A0 //Define pot como A0
+int potvalor; //Cria variável para armazenar o valor do potenciômetro
+void setup()
+{
+Serial.begin(9600); //Inicia a serial com Baud Rate de 9600
+}
+void loop()
+{
+potvalor = analogRead(A0); //Lê o potenciômetro e armazena na variável potvalor
+Serial.print("Valor do Potenciometro = "); //Imprime na serial "Valor do Potenciometro
+= "
+Serial.println(potvalor); //Imprime na serial o valor lido
+delay(250); //Aguarda 250 milissegundos
+}
+
+///exercicio 7//////
+
+#define potPin 0 // Define o pino analógico em que o potenciômetro vai ser conectado
+#define ledPin 9 // Define o pino que terá um LED e um resistência ligada ao terra
+int valPot = 0; //Variável que armazena o valor da leitura do potenciômetro
+void setup() {
+pinMode(ledPin,OUTPUT); // Configura o pino do LED como saída
+}
+void loop() {
+valPot = analogRead(potPin); //Faz a leitura analógica do pino em que o potenciômetro
+esta ligado
+valPot = map(valPot,0,1023,0,255); //Utilizando a função map() para transformar uma
+escala de 0-1023 em uma escala 0 a 255
+analogWrite(ledPin,valPot ); // Aciona o LED proporcionalmente ao valor da leitura
+analógica
+}
+
+
+//exercicio 8/////
+
+#include <Thermistor.h>
+Thermistor temp(0);
+void setup() {
+Serial.begin(9600);
+}
+void loop()
+{
+int temperature = temp.getTemp();
+Serial.print("Temperatura no Sensor eh: ");
+Serial.print(temperature); Serial.println("*C");
+delay(1000);
+}
+
+//exercicio 9////
+
